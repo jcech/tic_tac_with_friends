@@ -15,6 +15,8 @@ gem 'dotenv-rails'
 gem 'paperclip', :git => 'https://github.com/thoughtbot/paperclip'
 gem 'cancancan', '~> 1.7'
 gem 'twilio-ruby'
+gem 'pry'
+
 
 group :development do
   gem 'better_errors'
@@ -23,7 +25,6 @@ group :development do
 end
 
 group :test, :development do
-  gem 'rspec-rails'
   gem 'capybara'
   gem 'factory_girl_rails', "~> 4.0"
   gem 'poltergeist'
@@ -32,6 +33,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'pry'
   gem 'launchy'
+  gem 'rspec-rails'
+  gem 'rspec-mocks'
 end

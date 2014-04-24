@@ -10,7 +10,7 @@ describe User do
     fill_in :user_password, with: user.password
     fill_in :user_password_confirmation, with: user.password
     click_on "Sign up"
-    page.should have_content "Signed in as"
+    page.should have_content "signed up"
   end
 
   it 'allows a user to sign in' do
@@ -20,14 +20,14 @@ describe User do
     fill_in :user_username, with: user.username
     fill_in :user_password, with: user.password
     click_on 'Sign in'
-    page.should have_content "Signed in as #{user.username}"
+    page.should have_content "Signed in"
   end
 
   it 'allows a user to sign out' do
     user = build(:user)
     sign_up(user)
     click_on 'Sign Out'
-    page.should have_content 'Signed out successfully.'
+    page.should have_content 'Signed out'
   end
   # it 'allows a user to edit an account' do
   #   user = FactoryGirl.build(:user)
