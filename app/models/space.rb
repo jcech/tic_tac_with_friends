@@ -9,3 +9,4 @@ class Space
     @marked_by = player.symbol
   end
 end
+

@@ -3,6 +3,6 @@ TicTacWithFriends::Application.routes.draw do
   devise_for :users
   resources :application, only: [:index]
   resources :users, only: [:edit, :show]
-
+  resources :games, only: [:new, :create, :show]
 
 end

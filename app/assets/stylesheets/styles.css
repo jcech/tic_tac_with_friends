@@ -1,4 +1,22 @@
 body {
-  padding-top: 70px;
+  padding-top: 100px;
 }
 
+#game_board {
+  height: 500px;
+  width: 500px;
+  background-color: #425669;
+  padding: auto;
+  text-align: center;
+  margin: auto;
+}
+
+#game_board .col-md-4 {
+  border: 2px solid gray;
+  height: 150px;
+  width: 150px;
+  margin: 5px;
+  padding: 5px;
+  opacity: 1;
+  background-color: #E8F9FF;
+}
