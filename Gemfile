@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-
 gem 'rails', '~> 4.0.4'
 gem 'pg'
 gem 'sass-rails', '4.0.2'
@@ -16,7 +15,6 @@ gem 'dotenv-rails'
 gem 'paperclip', :git => 'https://github.com/thoughtbot/paperclip'
 gem 'cancancan', '~> 1.7'
 gem 'twilio-ruby'
-gem 'poltergeist'
 gem 'pry'
 
 
@@ -29,12 +27,13 @@ end
 group :test, :development do
   gem 'capybara'
   gem 'factory_girl_rails', "~> 4.0"
-  gem 'shoulda-matchers'
+  gem 'poltergeist'
   gem 'faker'
-  gem 'launchy'
 end
 
 group :test do
+  gem 'shoulda-matchers'
+  gem 'launchy'
   gem 'rspec-rails'
   gem 'rspec-mocks'
 end

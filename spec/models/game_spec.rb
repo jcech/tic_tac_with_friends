@@ -29,7 +29,6 @@ describe Game do
         test_game.board.spaces[0].mark_by(test_game.current_player)
         test_game.board.spaces[1].mark_by(test_game.current_player)
         test_game.board.spaces[2].mark_by(test_game.current_player)
-        binding.pry
         test_game.win?.should eq true
 
         test_game.winner.should eq test_game.current_player.user_id
