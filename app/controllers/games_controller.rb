@@ -17,6 +17,9 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    @player_x = User.find(@game.player_x)
+    @player_o = User.find(@game.player_o)
+    @current_player = User.find(@game.current_player.user_id)
   end
 
   private
