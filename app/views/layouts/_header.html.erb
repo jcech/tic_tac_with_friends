@@ -1,9 +1,10 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <% if !current_user %>
-    <%= link_to "Sign In", new_user_session_path %>
-    <%= link_to "Sign Up", new_user_registration_path %>
+    <%= link_to "Sign In", new_user_session_path, class: 'navbar-text' %>
+    <%= link_to "Sign Up", new_user_registration_path, class: 'navbar-text' %>
   <% else %>
-    <%= link_to "Sign Out", destroy_user_session %>
+    <%= link_to "Signed in as #{current_user.username}", user_path(current_user), class: 'navbar-text navbar-link'  %>
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'navbar-link navbar-text' %>
 
   <% end %>
 </nav>

@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-
 gem 'rails', '~> 4.0.4'
 gem 'pg'
 gem 'sass-rails', '4.0.2'
@@ -27,11 +26,12 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'factory_girl_rails', "~> 4.0"
+  gem 'poltergeist'
+  gem 'faker'
 end
 
 group :test do
   gem 'shoulda-matchers'
   gem 'pry'
   gem 'launchy'
-  gem 'faker'
 end

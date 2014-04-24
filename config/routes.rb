@@ -1,6 +1,8 @@
 TicTacWithFriends::Application.routes.draw do
   root to: 'application#index'
-  resources :application, only: [:index]
   devise_for :users
+  resources :application, only: [:index]
+  resources :users, only: [:edit, :show]
+
 
 end
