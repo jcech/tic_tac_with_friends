@@ -16,6 +16,7 @@ gem 'dotenv-rails'
 gem 'paperclip', :git => 'https://github.com/thoughtbot/paperclip'
 gem 'cancancan', '~> 1.7'
 gem 'twilio-ruby'
+gem 'poltergeist'
 
 group :development do
   gem 'better_errors'

@@ -5,8 +5,8 @@ class Space
     @marked_by = ""
   end
 
-  def mark_by(symbol)
-    @marked_by = symbol
+  def mark_by(player)
+    @marked_by = player.symbol
   end
 
 
