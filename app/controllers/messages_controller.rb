@@ -6,6 +6,10 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.create(message_params)
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js
+    end
   end
 
 private
