@@ -92,4 +92,26 @@ describe Game do
         test_game.winner.should eq test_game.active_player.user_id
       end
     end
+
+    describe '#evaluate_space_mark' do
+      it 'should return the mark of the given space number' do
+        test_game = Game.create
+
+        player = Player.create(:symbol => "x", :user_id => 1, :game_id => test_game.id)
+        test_game.update(:current_player => player.id )
+        test_game.board.spaces.find_by(:number => 1).mark_by(test_game.active_player)
+        test_game.evaluate_space_mark(1).should eq 'x'
+      end
+    end
+
+    describe '#set_winning_player' do
+      it 'should set the winning player to the player with the symbol of the given space number' do
+        test_game = Game.create
+        player = Player.create(:symbol => "x", :user_id => 1, :game_id => test_game.id)
+        test_game.update(:current_player => player.id )
+        test_game.board.spaces.find_by(:number => 1).mark_by(test_game.active_player)
+        test_game.set_winning_player(1)
+        test_game.winner.should eq test_game.active_player.user_id
+      end
+    end
 end

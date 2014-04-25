@@ -43,13 +43,14 @@ class Game < ActiveRecord::Base
     result
   end
 
+
   def evaluate_space_mark(number)
     self.board.spaces.find_by(:number => number).marked_by
 
   end
 
   def set_winning_player(number)
-    winning_player = self.players.select { |p| p.symbol == self.board.spaces.find_by( :number => number).marked_by }
+    winning_player = self.players.select { |p| p.symbol == self.evaluate_space_mark(number) }
     self.update(:winner => winning_player.first.user_id)
   end
 
