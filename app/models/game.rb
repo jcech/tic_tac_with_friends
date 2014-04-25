@@ -17,33 +17,35 @@ class Game < ActiveRecord::Base
   def set_current_player
     self.update(:current_player => self.players[rand(2)].id)
   end
-  # def win?
-  #   result = false
-  #   [0,3,6].each do |index|
-  #     if @board.spaces[index].marked_by == @board.spaces[index + 1].marked_by && @board.spaces[index+1].marked_by == @board.spaces[index + 2].marked_by
-  #       result = true
-  #       winning_player = @players.select { |p| p.symbol == @board.spaces[index].marked_by }
 
-  #       self.update(:winner => winning_player.first.user_id)
+  def win?
+    result = false
 
-  #     end
-  #   end
+    [1,4,7].each do |index|
+      if self.board.spaces.find_by(:number => index).marked_by == self.board.spaces.find_by(:number => (index +1)).marked_by && self.board.spaces.find_by(:number => (index +1)).marked_by == self.board.spaces.find_by(:number => (index + 2)).marked_by
 
-  #   [0,1,2].each do |index|
-  #     if @board.spaces[index].marked_by == @board.spaces[index + 3].marked_by && @board.spaces[index+3].marked_by == @board.spaces[index + 6].marked_by
-  #       result = true
-  #       winning_player = @players.select { |p| p.symbol == @board.spaces[index].marked_by }
-  #       self.update(:winner => winning_player.first.user_id)
-  #     end
-  #   end
+        result = true
+        winning_player = self.players.select { |p| p.symbol == self.board.spaces.find_by(:number => index).marked_by }
+        self.update(:winner => winning_player.first.user_id)
+      end
+    end
 
-  #   if (@board.spaces[4].marked_by == @board.spaces[0].marked_by && @board.spaces[0].marked_by == @board.spaces[8].marked_by) || (@board.spaces[2].marked_by == @board.spaces[4].marked_by && @board.spaces[4].marked_by == @board.spaces[6].marked_by)
-  #     result = true
-  #     winning_player = @players.select { |p| p.symbol == @board.spaces[4].marked_by }
-  #     self.update(:winner => winning_player.first.user_id)
-  #   end
-  #   result
-  # end
+    [1,2,3].each do |index|
+      if self.board.spaces.find_by(:number => index).marked_by == self.board.spaces.find_by(:number => (index + 3)).marked_by && self.board.spaces.find_by(:number => (index +3)).marked_by == self.board.spaces.find_by(:number => (index + 6)).marked_by
+
+        result = true
+        winning_player = self.players.select { |p| p.symbol == self.board.spaces.find_by(:number => index).marked_by }
+        self.update(:winner => winning_player.first.user_id)
+      end
+    end
+
+    if (self.board.spaces.find_by(:number => 5).marked_by == self.board.spaces.find_by(:number => 1).marked_by && self.board.spaces.find_by(:number => 1).marked_by == self.board.spaces.find_by(:number => 9).marked_by) || (self.board.spaces.find_by(:number => 3).marked_by == self.board.spaces.find_by(:number => 5).marked_by && self.board.spaces.find_by(:number => 5).marked_by == self.board.spaces.find_by(:number => 7).marked_by)
+      result = true
+      winning_player = self.players.select { |p| p.symbol == self.board.spaces.find_by(:number => 5).marked_by }
+      self.update(:winner => winning_player.first.user_id)
+    end
+    result
+  end
 
 
 
