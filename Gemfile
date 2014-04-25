@@ -16,7 +16,9 @@ gem 'paperclip', :git => 'https://github.com/thoughtbot/paperclip'
 gem 'cancancan', '~> 1.7'
 gem 'twilio-ruby'
 gem 'pry'
-
+gem 'thin'
+gem 'rack'
+gem 'faye'
 
 group :development do
   gem 'better_errors'
