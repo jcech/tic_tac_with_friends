@@ -19,7 +19,7 @@ body {
   margin: auto;
 }
 
-.col-md-4 {
+ .col-md-4 {
   border: 2px solid gray;
   height: 150px;
   width: 150px;
@@ -36,4 +36,15 @@ body {
     top: 0;
     left: 0;
     z-index: 10; /* Places the link above everything else in the div */
+}
+
+#winner {
+  padding: 15px;
+  font-size: 30px;
+  text-align: center;
+}
+
+#game_board {
+  font-size: 25px;
+  line-height: 140px;
 }

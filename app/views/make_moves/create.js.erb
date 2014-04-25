@@ -6,7 +6,7 @@
     $("div#<%= @space.number %>").text("<%= @current_player_symbol %>");
   } else {
     $("div#<%= @space.number %>").text("<%= @current_player_symbol %>");
-    $('div#winner').text("You Win");
+    $('div#winner').text("Player " + current_player + " Wins");
     $('div.game_square').children('a').remove();
 
   };
