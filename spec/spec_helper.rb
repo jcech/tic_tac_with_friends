@@ -21,6 +21,12 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.include Paperclip::Shoulda::Matchers
+
+  config.after(:each) do
+    Game.all.each { |game| game.destroy }
+    Player.all.each { |player| player.destroy }
+  end
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

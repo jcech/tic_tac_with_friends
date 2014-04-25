@@ -4,4 +4,12 @@ TicTacWithFriends::Application.routes.draw do
   resources :messages
   resources :application, only: [:index]
   resources :users, only: [:edit, :show]
+
+  resources :games, only: [:new, :create, :show]
+
+match('game/:game_id/:space_number', {:via => :post, :to => 'make_moves#create'})
+
+
+
+
 end

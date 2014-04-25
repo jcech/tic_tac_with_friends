@@ -1,11 +1,8 @@
-class Space
-  attr_reader :id, :marked_by
-  def initialize(id)
-    @id = id
-    @marked_by = id
-  end
+class Space < ActiveRecord::Base
+  belongs_to :board
 
   def mark_by(player)
-    @marked_by = player.symbol
+    self.update(:marked_by => player.symbol)
   end
 end
+

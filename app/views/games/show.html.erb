@@ -1,0 +1,43 @@
+<h1>Welcome to the best game of your life</h1>
+<h2>Seriously you have a sad life</h2>
+
+<div class = "well" id="game_board">
+  <div class="row">
+    <div class="col-md-4 game_square" id="1">
+      <a href="/game/<%= @game.id %>/1", data-method="post"></a>
+    </div>
+    <div class="col-md-4 game_square" id="2">
+      <a href="/game/<%= @game.id %>/2", data-method="post"></a>
+    </div>
+    <div class="col-md-4 game_square" id="3">
+      <a href="/game/<%= @game.id %>/3", data-method="post"></a>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 game_square" id="4">
+         <a href="/game/<%= @game.id %>/4", data-method="post"></a>
+    </div>
+    <div class="col-md-4 game_square" id="5">
+      <a href="/game/<%= @game.id %>/5", data-method="post"></a>
+    </div>
+    <div class="col-md-4 game_square" id="6">
+      <a href="/game/<%= @game.id %>/6", data-method="post"></a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 game_square" id="7">
+      <a href="/game/<%= @game.id %>/7", data-method="post"></a>
+    </div>
+    <div class="col-md-4 game_square" id="8">
+      <a href="/game/<%= @game.id %>/8", data-method="post"></a>
+    </div>
+    <div class="col-md-4 game_square" id="9">
+      <a href="/game/<%= @game.id %>/9", data-method="post"></a>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- game/#{@game.id}/4 -->

@@ -1,57 +1,67 @@
 class Game < ActiveRecord::Base
-  attr_reader :board, :players, :current_player
-  validates :player_x, presence: true
-  validates :player_o, presence: true
-  after_create :make_players, :build_board
+  has_many :players
+  has_many :users, through: :players
+  has_one :board
+
+  after_create :build_board
+
+  def active_player
+    Player.find(self.current_player)
+  end
 
   def change_turns
-    new_current_player = @players.select { |x| x.symbol != @current_player.symbol}
-    @current_player = new_current_player
+    new_current_player = self.players.select { |x| x.symbol != self.active_player.symbol}
+    self.update(:current_player => new_current_player.first.id)
+  end
+
+  def set_current_player
+    self.update(:current_player => self.players[rand(2)].id)
   end
 
   def win?
     result = false
-    [0,3,6].each do |index|
-      if @board.spaces[index].marked_by == @board.spaces[index + 1].marked_by && @board.spaces[index+1].marked_by == @board.spaces[index + 2].marked_by
+
+    [1,4,7].each do |index|
+      if evaluate_space_mark(index) == evaluate_space_mark(index+1) && evaluate_space_mark(index+1) == evaluate_space_mark(index+2)
+
         result = true
-        winning_player = @players.select { |p| p.symbol == @board.spaces[index].marked_by }
-
-        self.update(:winner => winning_player.first.user_id)
-
+        self.set_winning_player(index)
       end
     end
 
-    [0,1,2].each do |index|
-      if @board.spaces[index].marked_by == @board.spaces[index + 3].marked_by && @board.spaces[index+3].marked_by == @board.spaces[index + 6].marked_by
+    [1,2,3].each do |index|
+      if evaluate_space_mark(index) == evaluate_space_mark(index + 3) && evaluate_space_mark(index + 3) == evaluate_space_mark(index+6)
         result = true
-        winning_player = @players.select { |p| p.symbol == @board.spaces[index].marked_by }
-        self.update(:winner => winning_player.first.user_id)
+        self.set_winning_player(index)
       end
     end
 
-    if (@board.spaces[4].marked_by == @board.spaces[0].marked_by && @board.spaces[0].marked_by == @board.spaces[8].marked_by) || (@board.spaces[2].marked_by == @board.spaces[4].marked_by && @board.spaces[4].marked_by == @board.spaces[6].marked_by)
+    if evaluate_space_mark(5) == evaluate_space_mark(1) && evaluate_space_mark(1) == evaluate_space_mark(9) || evaluate_space_mark(3) == evaluate_space_mark(5) && evaluate_space_mark(5) == evaluate_space_mark(7)
       result = true
-      winning_player = @players.select { |p| p.symbol == @board.spaces[4].marked_by }
-      self.update(:winner => winning_player.first.user_id)
+      self.set_winning_player(5)
     end
     result
   end
 
 
+  def evaluate_space_mark(number)
+    self.board.spaces.find_by(:number => number).marked_by
+
+  end
+
+  def set_winning_player(number)
+    winning_player = self.players.select { |p| p.symbol == self.evaluate_space_mark(number) }
+    self.update(:winner => winning_player.first.user_id)
+  end
 
 
   private
 
   def build_board
-    @board = Board.create
+    Board.create(:game_id => self.id)
+
   end
 
-  def make_players
-    @players = []
-    @players << Player.new(self.player_x, 'X')
-    @players << Player.new(self.player_o, 'O')
-    @current_player = @players[rand(2)]
-  end
 
 
 end
