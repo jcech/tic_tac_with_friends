@@ -1,6 +1,14 @@
   var current_player = '<%= @current_player_symbol %>'
+  var is_winner = '<%= @is_winner %>'
 
-  $("div#<%= @space.number %>").text("<%= @current_player_symbol %>");
 
+  if( is_winner === "false" ) {
+    $("div#<%= @space.number %>").text("<%= @current_player_symbol %>");
+  } else {
+    $("div#<%= @space.number %>").text("<%= @current_player_symbol %>");
+    $('div#winner').text("You Win");
+    $('div.game_square').children('a').remove();
+
+  };
 
 
