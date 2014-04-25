@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Board do
   it {should have_many :spaces}
+  it { should belong_to :game }
 #   describe "#initialize" do
 #     it "sets attributes of board upon creation" do
 #       b = Board.new()

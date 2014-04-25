@@ -3,13 +3,14 @@ require 'spec_helper'
 describe Game do
   it { should have_many :players }
   it { should have_many :users }
+  it { should have_one :board }
 
 
 
-  # it 'builds a board before creation' do
-  #   game = FactoryGirl.create(:game)
-  #   game.board.should be_true
-  # end
+  it 'adds a new board to the boards attribute of Game after create' do
+    game = Game.create
+    game.board.should_not eq nil
+  end
 
   # it 'makes two players before creation' do
   #   game = FactoryGirl.create(:game)
@@ -25,7 +26,7 @@ describe Game do
     game = Game.create
     playerX = game.players.create(:symbol => 'x')
     playerO = game.players.create(:symbol => 'o')
-    binding.pry
+
     game.set_current_player
     starting_player = game.current_player
     game.change_turns

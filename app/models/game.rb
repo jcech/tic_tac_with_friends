@@ -1,6 +1,9 @@
 class Game < ActiveRecord::Base
   has_many :players
   has_many :users, through: :players
+  has_one :board
+
+  after_create :build_board
 
   def active_player
     Player.find(self.current_player)
@@ -45,18 +48,13 @@ class Game < ActiveRecord::Base
 
 
 
-  # private
+  private
 
-  # def build_board
-  #   @board = Board.create
-  # end
+  def build_board
+    Board.create(:game_id => self.id)
 
-  # def make_players
-  #   @players = []
-  #   @players << Player.new(self.player_x, 'X')
-  #   @players << Player.new(self.player_o, 'O')
-  #   @current_player = @players[rand(2)]
-  # end
+  end
+
 
 
 end

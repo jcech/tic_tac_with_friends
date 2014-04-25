@@ -1,5 +1,6 @@
 class Board < ActiveRecord::Base
  has_many :spaces
+ belongs_to :game
 
   # def self.create
   #   new_board = Board.new
