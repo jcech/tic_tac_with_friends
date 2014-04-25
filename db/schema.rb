@@ -11,11 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424164434) do
+ActiveRecord::Schema.define(version: 20140424230314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "boards", force: true do |t|
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games", force: true do |t|
+    t.integer  "winner",         default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "current_player"
+  end
+
+  create_table "players", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "game_id"
+    t.string   "symbol"
+    t.boolean  "won",        default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spaces", force: true do |t|
+    t.integer  "board_id"
+    t.integer  "number"
+    t.string   "marked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "username"
@@ -33,21 +62,11 @@ ActiveRecord::Schema.define(version: 20140424164434) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "games", force: true do |t|
-    t.integer  "player_x"
-    t.integer  "player_o"
-    t.integer  "winner",     default: 0
-
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
 end
