@@ -22,32 +22,36 @@ class Game < ActiveRecord::Base
     result = false
 
     [1,4,7].each do |index|
-      if self.board.spaces.find_by(:number => index).marked_by == self.board.spaces.find_by(:number => (index +1)).marked_by && self.board.spaces.find_by(:number => (index +1)).marked_by == self.board.spaces.find_by(:number => (index + 2)).marked_by
+      if evaluate_space_mark(index) == evaluate_space_mark(index+1) && evaluate_space_mark(index+1) == evaluate_space_mark(index+2)
 
         result = true
-        winning_player = self.players.select { |p| p.symbol == self.board.spaces.find_by(:number => index).marked_by }
-        self.update(:winner => winning_player.first.user_id)
+        self.set_winning_player(index)
       end
     end
 
     [1,2,3].each do |index|
-      if self.board.spaces.find_by(:number => index).marked_by == self.board.spaces.find_by(:number => (index + 3)).marked_by && self.board.spaces.find_by(:number => (index +3)).marked_by == self.board.spaces.find_by(:number => (index + 6)).marked_by
-
+      if evaluate_space_mark(index) == evaluate_space_mark(index + 3) && evaluate_space_mark(index + 3) == evaluate_space_mark(index+6)
         result = true
-        winning_player = self.players.select { |p| p.symbol == self.board.spaces.find_by(:number => index).marked_by }
-        self.update(:winner => winning_player.first.user_id)
+        self.set_winning_player(index)
       end
     end
 
-    if (self.board.spaces.find_by(:number => 5).marked_by == self.board.spaces.find_by(:number => 1).marked_by && self.board.spaces.find_by(:number => 1).marked_by == self.board.spaces.find_by(:number => 9).marked_by) || (self.board.spaces.find_by(:number => 3).marked_by == self.board.spaces.find_by(:number => 5).marked_by && self.board.spaces.find_by(:number => 5).marked_by == self.board.spaces.find_by(:number => 7).marked_by)
+    if evaluate_space_mark(5) == evaluate_space_mark(1) && evaluate_space_mark(1) == evaluate_space_mark(9) || evaluate_space_mark(3) == evaluate_space_mark(5) && evaluate_space_mark(5) == evaluate_space_mark(7)
       result = true
-      winning_player = self.players.select { |p| p.symbol == self.board.spaces.find_by(:number => 5).marked_by }
-      self.update(:winner => winning_player.first.user_id)
+      self.set_winning_player(5)
     end
     result
   end
 
+  def evaluate_space_mark(number)
+    self.board.spaces.find_by(:number => number).marked_by
 
+  end
+
+  def set_winning_player(number)
+    winning_player = self.players.select { |p| p.symbol == self.board.spaces.find_by( :number => number).marked_by }
+    self.update(:winner => winning_player.first.user_id)
+  end
 
 
   private
